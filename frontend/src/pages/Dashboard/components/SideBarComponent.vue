@@ -17,28 +17,28 @@
           >
         </li>
         <li>
-          <router-link :to="{ name: 'home' }"
+          <router-link :to="{ name: 'menu' }"
+            ><i class="fa fa-home"></i> Cardápio</router-link
+          >
+        </li>
+        <li>
+          <router-link :to="{ name: 'registerMenu' }"
             ><i class="fa fa-home"></i> Cadastrar Cardápio</router-link
           >
         </li>
         <li>
-          <router-link :to="{ name: 'home' }"
+          <router-link :to="{ name: 'registerCategory' }"
             ><i class="fa fa-home"></i> Cadastrar Categoria</router-link
           >
         </li>
         <li>
-          <router-link :to="{ name: 'home' }"
+          <router-link :to="{ name: 'users' }"
             ><i class="fa fa-home"></i> Usuários</router-link
           >
         </li>
         <li>
-          <router-link :to="{ name: 'home' }"
-            ><i class="fa fa-home"></i> Cadastrar Usuários</router-link
-          >
-        </li>
-        <li>
-          <router-link :to="{ name: 'home' }"
-            ><i class="fa fa-home"></i> Início</router-link
+          <router-link :to="{ name: 'registerUser' }"
+            ><i class="fa fa-home"></i> Cadastrar Usuário</router-link
           >
         </li>
       </ul>
