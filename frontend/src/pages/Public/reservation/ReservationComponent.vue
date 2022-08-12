@@ -1,8 +1,9 @@
 <template>
-  <DashboardComponent>
-    <div class="content-pages">
-      <h1 class="p-2">Cadastrar Usuário</h1>
-      <slot>   <div >
+  <DeliveryComponent>
+    <div class="p-3">
+      <slot>
+        
+      <div >
         <header class="d-flex justify-content-center">
           <h1>Faça sua reserva !</h1>
         </header>
@@ -73,17 +74,65 @@
             </button>
           </form>
         </div>
-      </div> </slot>
+      </div> 
+       </slot>      
     </div>
-  </DashboardComponent>
+  </DeliveryComponent>
 </template>
 
 <script>
-import DashboardComponent from "../Dashboard/DashboardComponent.vue";
+import api from "../../../api";
+import DeliveryComponent from "../DeliveryComponent.vue";
 
 export default {
+  name: "ReservationComponent",
+  data() {
+    return {
+      reserva: {},
+    };
+  },
+ 
+ methods: {    
+    async submit() {
+      const data = {
+        name:this.name,
+        dta_reservation:this.dta_reservation,
+        hr_reservation:this.hr_reservation,
+        qtd:this.qtd,
+        phone:this.phone,
+        };
+      console.log('Reserva :',data);
+
+      const response = api.post("reservations", data);
+
+        console.log('Reserva :',response)
+
+      /* api.post('/login', data).then((response)=>{
+      console.log(response)
+      localStorage.setItem('token', response.data.access_token)
+
+      })
+      .catch((error)=>{
+        console.log('Erro', error.response)
+      }) */
+
+
+
+
+
+/* 
+      .post("/login", data)
+      .then((res) => {
+        this.token = res.data.access_token;
+        console.log('menus',this.token)
+      })
+      .catch((error) => {
+        console.log(error)
+      }); */
+    },
+  },
   components: {
-    DashboardComponent,
+    DeliveryComponent,
   },
 };
 </script>

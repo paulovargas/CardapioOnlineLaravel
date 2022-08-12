@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\ApiDash\HomeController;
+use App\Http\Controllers\ApiDash\ReservationController;
+use App\Http\Controllers\ApiDash\MenuController;
+use App\Http\Controllers\ApiDash\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +18,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/* Route::middleware('auth:sanctum')->get('/user', function(Request $request){
     return $request->user();
 });
+
+Route::post('/login', function(Request $request){
+    if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+        $user = Auth::user();
+        $token = $user->createToken('JWT');
+        return response()->json($token->plainTextToken, 200);
+
+    }
+    return response()->json('Usuário inválido', 401);
+}); */
+/* Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
+    return $request->user();
+}); */
+/* Route::post('/login', function(Request $request){
+    if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+        $user = Auth::user();
+        $token = $user->createToken('JWT');
+        return response()->json($token->plainTextToken, 200);
+
+    }
+    return response()->json('Usuário inválido', 401);
+}); */
+
+Route::post('upload', [uploadController::class,'upload']);
+
+Route::get('/reservations', [ReservationController::class,'index']);
+Route::post('/reservations', [ReservationController::class,'create']);
+Route::get('/menus', [MenuController::class,'index']);
+Route::get('/users', [UserController::class,'index']);
+Route::post('/users', [UserController::class,'create']);
+Route::get('/', [HomeController::class,'index']);
+
+

@@ -17,7 +17,7 @@
 <script>
 
 export default {
-  name: "CardsMenuComponent",
+  name: "CardsMenuInitComponent",
   props: {
     title: String,
     description: String,

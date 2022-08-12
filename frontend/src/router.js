@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+//import DeliveryComponent from "./pages/Public/DeliveryComponent"
+import ReservationComponent from './pages/Public/reservation/ReservationComponent'
 import HomeComponent from "./pages/home/HomeComponent";
+import HomeDeliveryComponent from "./pages/Public/home/HomeComponent";
 import LoginComponent from "./pages/login/LoginComponent";
 import MenuComponent from "./pages/menu/MenuComponent";
 import RegisterCategoryComponent from "./pages/registerCategory/RegisterCategoryComponent";
@@ -11,6 +14,16 @@ import UsersComponent from "./pages/users/UsersComponent";
 const routes = [
   {
     path: "/",
+    name: "delivery",
+    component: HomeDeliveryComponent,
+  },
+  {
+    path: "/reservation",
+    name: "reservation",
+    component: ReservationComponent,
+  },
+  {
+    path: "/login",
     name: "login",
     component: LoginComponent,
   },
