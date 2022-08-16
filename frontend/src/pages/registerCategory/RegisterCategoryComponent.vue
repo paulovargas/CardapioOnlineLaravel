@@ -6,7 +6,7 @@
       <slot>
         <div >        
         <div class="d-flex p-3">
-          <form @submit.stop.prevent="submit">            
+          <form class="d-flex form" @submit.stop.prevent="submit">            
             <div class="form-group">
               <label for="exampleInputEmail1">Descrição</label>
               <input
@@ -20,7 +20,7 @@
               />
             </div>           
             <div class="form-check"></div>
-            <div class="">
+            <div class="form-group mt-4">
               <button
               type="submit"
               class="btn"
@@ -54,7 +54,8 @@
               v-on:click="destroyCategory(category.id)"
             >
               <i class="fa fa-trash" ></i>
-            </button></td>
+            </button>
+      </td>
     </tr>    
   </tbody>
 </table>
@@ -149,6 +150,10 @@ export default {
 };
 </script>
 <style scoped>
+
+.form{
+  align-items: center;
+}
 .btn{
   color: #fff;
   background-color: red;

@@ -37,4 +37,12 @@ class UserController extends Controller
         return response()->json('Usuário inválido', 401);
         
     }
+
+    public function destroy($request)
+    {
+        $user = User::find($request);
+        $user->delete();
+
+        return response()->json(["message" => "Usuário excluído com sucesso!"], 201);        
+    }
 }

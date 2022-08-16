@@ -28,7 +28,7 @@
         </li>
         <li>
           <router-link :to="{ name: 'registerCategory' }"
-            ><i class="fa fa-list"></i> Cadastrar Categoria</router-link
+            ><i class="fa fa-list"></i> Categorias</router-link
           >
         </li>
         <li>
@@ -36,11 +36,7 @@
             ><i class="fa fa-users"></i> Usuários</router-link
           >
         </li>
-        <li>
-          <router-link :to="{ name: 'registerUser' }"
-            ><i class="fa fa-user"></i> Cadastrar Usuário</router-link
-          >
-        </li>
+        
       </ul>
     </div>
   </div>
