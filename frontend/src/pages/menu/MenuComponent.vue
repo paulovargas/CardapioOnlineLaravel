@@ -11,7 +11,7 @@
                   :description="`${menu.description}`"
                   :price="`${menu.price}`"
                   :category="`${menu.category}`"
-                  :image="`${menu.image}`"
+                  :image="'http://localhost:8000' + `${menu.image}`"
                   />
             </div>
           </div>       

@@ -11,7 +11,7 @@
                   :description="`${menu.description}`"
                   :price="`${menu.price}`"
                   :category="`${menu.category}`"
-                  :image="`${menu.image}`"
+                  :image="'http://localhost:8000' + `${menu.image}`"
       />
       </div>  
       </div>  
@@ -42,7 +42,6 @@ export default {
       .get("/menus")
       .then((res) => {
         this.menus = res.data;
-        console.log('menus',this.menus)
       })
       .catch((error) => {
         console.log(error)

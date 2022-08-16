@@ -30,15 +30,31 @@
             
           </form>
         </div>
-      </div> </slot>
+      </div>
+              <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Código</th>
+      <th scope="col">Descrição</th>
+      <th scope="col">Acões</th>
+    </tr>
+  </thead>
+  <tbody>    
+    <tr v-for="category in categorys" :key="category.id">
+      <th scope="row">{{ category.id }}</th>
+      <td>{{ category.description }}</td>
+      <td><i class="fa fa-edit"></i> <i class="fa fa-trash"></i></td>
+    </tr>    
+  </tbody>
+</table>
+      </slot>
     </div>
   
   </DashboardComponent>
 </template>
 
 <script>
-//import api from "@/api";
-//import axios from "axios";
+import api from "@/api";
 import DashboardComponent from "../Dashboard/DashboardComponent.vue";
 
 export default {
@@ -46,7 +62,14 @@ export default {
   data() {
     return {
       description: '',
+      categorys: {},
     };
+  },
+   created() {
+     this.getCategory();
+   },
+  mounted() {    
+    this.getCategory();
   },
   methods: {     
     submit() {
@@ -66,6 +89,16 @@ export default {
         console.log(res)
         console.log(payload)
       })
+    },
+    getCategory() {
+      api
+      .get("/category")
+      .then((res) => {
+        this.categorys = res.data;
+      })
+      .catch((error) => {
+        console.log(error)
+      });
     },
   
   },

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Menu;
 use Image;
+use File;
 
 class MenuController extends Controller
 {
@@ -20,36 +21,18 @@ class MenuController extends Controller
         foreach( $menu as $item => $name){
             $path = $name->image;
             
-
-            $img = Storage::get($path);
-            $image = Image::make($img);
-           /*  $this->imagem = Image::make($img);
-            $response = Response::make($this->imagem->encode('jpeg'));
-            $response->header('Content-Type', 'image/jpeg');
-            $name->image = $response; */
-
-            //$image = Storage::get($path);
-            //$name->image = Image::make($image)->resize(320, 240);
-            //echo Image::make($image)->resize(320, 240);
-
-            //echo Storage::url($path);
-
-            //echo $image;
-            
-            //$name->image = response()->make($image->encode($image->mime()), 200, array('Content-Type' => 'image' . $image->mime()));
-            //echo $name->image;      
-            
+            $url = Storage::url($path);
+            $name->image = $url;            
         }      
         return response()->json($menu);        
     }
     public function store(MenuStoreRequest $request)
     {
         $input = $request->validated();
-        //dd($input);
         $image = $input['image'];
         $path = $image->store('images','public');
-        $input['image'] = "public/$path";
-        $menu = Menu::create($input);       
+        $input['image'] = $path;
+        $menu = Menu::create($input);
 
         return response()->json(["message" => "Prato salvo com sucesso!"], 201);
         

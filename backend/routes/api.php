@@ -38,6 +38,8 @@ Route::post('/login', function(Request $request){
     return response()->json('Usuário inválido', 401);
 });
 
+Route::get('image/{filename}', [HomeController::class, 'displayImage']);
+
 Route::post('upload', [uploadController::class,'upload']);
 
 Route::get('/reservations', [ReservationController::class,'index']);
