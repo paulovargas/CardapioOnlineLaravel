@@ -2,19 +2,21 @@
   <DashboardComponent>
     <div class="content-pages">
       <h1 class="p-2">Cardápio</h1>
-      <div class="p-3">
-        <slot>         
-        <div v-for="menu in menus" :key="menu.id">
-         <CardsMenuComponent
-          :title="`${menu.title}`"
-          :description="`${menu.description}`"
-          :price="`${menu.price}`"
-          :category="`${menu.category}`"
-          :image="`${menu.image}`"
-      />
-      </div>          
+        <div class="row m-3 mr-0"> 
+          <slot>         
+            <div class="row col page">
+              <div class="col mt-3" v-for="menu in menus" :key="menu.id">
+                <CardsMenuComponent
+                  :title="`${menu.title}`"
+                  :description="`${menu.description}`"
+                  :price="`${menu.price}`"
+                  :category="`${menu.category}`"
+                  :image="`${menu.image}`"
+                  />
+            </div>
+          </div>       
         </slot>
-      </div>
+       </div>       
     </div>
   </DashboardComponent>
 </template>
@@ -44,7 +46,6 @@ export default {
       .get("/menus")
       .then((res) => {
         this.menus = res.data;
-        console.log('Menus :', this.menus)
       })
       .catch((error) => {
         console.log(error)
@@ -57,4 +58,17 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.page {
+  width: 90%;
+  position: absolute;
+  bottom: 0;
+  top: 130px;
+  overflow: auto;
+  margin-top: 85px;
+  flex-wrap: wrap;
+}
+.card{
+  justify-content: center;
+}
+</style>

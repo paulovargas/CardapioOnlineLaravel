@@ -8,7 +8,7 @@
           <h1>Faça sua reserva !</h1>
         </header>
         <div class="d-flex justify-content-center">
-          <form>
+          <form >
             <div class="form-group">
               <label for="data">Data </label>
               <input
@@ -67,8 +67,8 @@
             <div class="form-check"></div>
             <button
               type="submit"
-              class="btn btn-primary"
-              @click="submit"
+              class="btn"
+              @click.stop.prevent="submit"
             >
               Marcar reserva !
             </button>
@@ -101,34 +101,8 @@ export default {
         qtd:this.qtd,
         phone:this.phone,
         };
-      console.log('Reserva :',data);
-
-      const response = api.post("reservations", data);
-
-        console.log('Reserva :',response)
-
-      /* api.post('/login', data).then((response)=>{
-      console.log(response)
-      localStorage.setItem('token', response.data.access_token)
-
-      })
-      .catch((error)=>{
-        console.log('Erro', error.response)
-      }) */
-
-
-
-
-
-/* 
-      .post("/login", data)
-      .then((res) => {
-        this.token = res.data.access_token;
-        console.log('menus',this.token)
-      })
-      .catch((error) => {
-        console.log(error)
-      }); */
+      const response = await api.post("reservations", data);
+      alert(response.data.message);
     },
   },
   components: {
@@ -136,4 +110,8 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.btn{
+  color: #fff;
+  background-color: red;
+}</style>

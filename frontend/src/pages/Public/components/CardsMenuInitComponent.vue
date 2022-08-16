@@ -9,7 +9,7 @@
       <p><i class="fa fa-users"> </i>   Serve até {{ 2 }} pessoas</p>
       <p><i class="fa fa-users"> </i> {{ price }}</p>
       <p><i class="fa fa-users"> </i> {{ category }}</p>
-      <p><img v-bind:src="image" alt="" class="img" /></p>
+      <p><img :src="image" alt="" class="img" /></p>
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped> 
 @import "@/assets/scss/main";
 .my_card {
   display: flex;

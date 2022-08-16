@@ -6,7 +6,7 @@
           <h1>Login no Sistema</h1>
         </header>
         <div class="form">
-          <form>
+          <form @submit.stop.prevent="submit">
             <div class="form-group">
               <label for="exampleInputEmail1">Email</label>
               <input
@@ -44,84 +44,41 @@
 </template>
 <script>
 
-import api from "../../api";
-
 export default {
   name: "LoginComponent",
   data() {
     return {
-    token: {}
-    };
-    
+     email: '',
+     password: '',
+    };    
   }, 
  methods: {    
-    submit() {
-      var data = {email:this.email, password:this.password}
-      console.log(data)
-
-      api
-      .post("/login", data)
-      .then((res) => {
-        this.menus = res.data;
-        console.log('menus',this.menus)
-      })
-      .catch((error) => {
-        console.log(error)
-      });
-      /* api.post('/login', data).then((response)=>{
-      console.log(response)
-      localStorage.setItem('token', response.data.access_token)
-
-      })
-      .catch((error)=>{
-        console.log('Erro', error.response)
-      }) */
+  submit() {
+      const payload = {
+        email: this.email,
+        password: this.password
+      };
 
 
-
-
-
-/* 
-      .post("/login", data)
-      .then((res) => {
-        this.token = res.data.access_token;
-        console.log('menus',this.token)
-      })
-      .catch((error) => {
-        console.log(error)
-      }); */
-    },
+      fetch(`http://localhost:8000/api/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type':'application/json',
+          'Access':'application/json',
+        },
+        body: JSON.stringify(payload)
+      }).then(response => response.json())
+      .then(res => {
+        if(res !== 'Usuário inválido'){          
+        localStorage.setItem('token', res)
+        this.$router.push('/home')
+        }
+        else{
+          alert(res)
+        }
+      }) 
+    }, 
   },
 };
-
-/* methods: {
-    async submit(){
-      var data = {email:this.email, password:this.password}
-      console.log(data)
-
-      const response = await axios.post(
-        "http://localhost:8000/api/login",
-         { data }
-      );
-      console.log('response :', response)
-
-      /* this.$http.post('login', data).then(response => {
-        console.log(response)
-      })
-      .catch((error)=>{
-        console.log(error.response)
-      }) */
-
-      /* this.$http.post('login', data).then((response)=>{
-        console.log(response)
-        localStorage.setItem('token', response.data.access_token)
-
-      })
-      .catch((error)=>{
-        console.log('Erro', error.response)
-      })
-
-    }
-  },*/
 </script>
 <style lang="scss" src="./style.scss" scoped />

@@ -1,15 +1,16 @@
 <template>
   <div class="my_card">
     <div class="content">
-      <i class="fa-duotone fa-pot-food"></i>
       <h3>{{ title }}</h3>
       <p class="percentage">
-      <i class="fa-duotone fa-pot-food"></i>   {{ description }}
+      <i class="fa-solid fa-bowl-food"></i>
+          {{ description }}
       </p>
       <p><i class="fa fa-users"> </i>   Serve até {{ 2 }} pessoas</p>
-      <p><i class="fa fa-users"> </i> {{ price }}</p>
-      <p><i class="fa fa-users"> </i> {{ category }}</p>
+      <p><i class="fa-solid fa-brazilian-real-sign"></i> {{ price }}</p>
+      <p><i class="fa-solid fa-kitchen-set"></i> {{ category }}</p>
       <p><img v-bind:src="image" alt="" class="img" /></p>
+      <p>{{ image }}</p>
     </div>
   </div>
 </template>

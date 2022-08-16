@@ -12,7 +12,8 @@ export default {
   name: "SideBarComponent",
   methods: {
     logout() {
-      this.$router.push({ name: "login" });
+        localStorage.clear();
+      this.$router.push('/');
     },
   },
 };

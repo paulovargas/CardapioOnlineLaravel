@@ -26,6 +26,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/main";
 .my_card {
+  justify-content: center;
   display: flex;
   flex-direction: column;
   width: 300px;

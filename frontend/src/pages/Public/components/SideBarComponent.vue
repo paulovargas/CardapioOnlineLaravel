@@ -10,7 +10,7 @@
         </li>
         <li>
           <router-link :to="{ name: 'reservation' }"
-            ><i class="fa fa-home"></i> Faça sua reserva !</router-link
+            ><i class="fa fa-table"></i> Faça sua reserva !</router-link
           >
         </li>
         

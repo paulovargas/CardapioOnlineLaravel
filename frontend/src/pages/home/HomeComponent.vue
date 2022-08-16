@@ -1,18 +1,19 @@
 <template>
-  <DashboardComponent>
+  <DashboardComponent> 
     <h1 class="p-2">Reservas</h1>
-    <div class="row p-3">
-      <slot
-        >
-        <div class="col m-0 mt-3" v-for="reservation in reservations" :key="reservation.id">
-         <CardsComponent
-          :name="`${reservation.name}`"
-          :reservation="`${reservation.dta_reservation} - ${reservation.hr_reservation}`"
-          :qtdPeople="`${reservation.qtd}`"
-          :tele="`${reservation.phone}`"
-      /></div>
-       </slot>
-      
+    <div class="row m-3 mr-0">
+      <slot>
+        <div class="row col page">
+          <div class="col mt-3" v-for="reservation in reservations" :key="reservation.id">
+            <CardsComponent
+              :name="`${reservation.name}`"
+              :reservation="`${reservation.dta_reservation} - ${reservation.hr_reservation}`"
+              :qtdPeople="`${reservation.qtd}`"
+              :tele="`${reservation.phone}`"
+              />
+            </div>
+          </div>       
+       </slot>      
     </div>
   </DashboardComponent>
 </template>
@@ -43,7 +44,6 @@ export default {
       .get("/reservations")
       .then((res) => {
         this.reservations = res.data;
-        console.log('reser :', res.data)
       })
       .catch((error) => {
         console.log(error)
@@ -57,8 +57,16 @@ export default {
 };
 </script>
 <style scoped>
-.Cards {
-  display: flex;
+.page {
+  width: 90%;
+  position: absolute;
+  bottom: 0;
+  top: 130px;
+  overflow: auto;
+  margin-top: 85px;
+  flex-wrap: wrap;
+}
+.card{
   justify-content: center;
 }
 </style>

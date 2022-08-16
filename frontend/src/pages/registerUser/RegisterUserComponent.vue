@@ -2,75 +2,54 @@
   <DashboardComponent>
     <div class="content-pages">
       <h1 class="p-2">Cadastrar Usuário</h1>
-      <slot>   <div >
-        <header class="d-flex justify-content-center">
-          <h1>Faça sua reserva !</h1>
-        </header>
-        <div class="d-flex justify-content-center">
-          <form>
-            <div class="form-group">
-              <label for="data">Data </label>
-              <input
-                v-model="dta_reservation"
-                type="date"
-                class="form-control"
-                id="date"
-                aria-describedby="date"
-                placeholder="Data"
-              />
-            </div>
-            <div class="form-group">
-              <label for="data">Hora </label>
-              <input
-                v-model="hr_reservation"
-                type="time"
-                class="form-control"
-                id="date"
-                aria-describedby="date"
-                placeholder="20:30"
-              />
-            </div>
+      <slot>
+        <div >        
+        <div class="d-flex p-3">
+          <form>            
             <div class="form-group">
               <label for="exampleInputEmail1">Nome</label>
               <input
-                v-model="name"
+                v-model="user.name"
                 type="text"
                 class="form-control"
                 id="name"
                 aria-describedby="name"
-                placeholder="Seu nome"
+                placeholder="Nome do usuário"
               />
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Quantas pessoas ?</label>
+              <label for="exampleInputEmail1">Email</label>
               <input
-                v-model="qtd"
-                type="number"
+                v-model="user.email"
+                type="email"
                 class="form-control"
-                id="qtd"
-                aria-describedby="qtd"
-                placeholder="Quantas pessoas ?"
+                id="email"
+                aria-describedby="email"
+                placeholder="Email do usuário"
               />
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1">Seu telefone :</label>
+              <label for="exampleInputEmail1">Senha</label>
               <input
-                v-model="phone"
-                type="phone"
+                v-model="user.password"
+                type="password"
                 class="form-control"
-                id="tel"
-                aria-describedby="tel"
-                placeholder="Telefone"
+                id="password"
+                aria-describedby="password"
+                placeholder="Senha"
               />
             </div>            
             <div class="form-check"></div>
-            <button
+            <div class="">
+              <button
               type="submit"
-              class="btn btn-primary"
-              @click="submit"
+              class="btn"
+              @click.stop.prevent="submit"
             >
-              Marcar reserva !
+              Salvar
             </button>
+            </div>
+            
           </form>
         </div>
       </div> </slot>
@@ -79,12 +58,41 @@
 </template>
 
 <script>
+import axios from "axios";
 import DashboardComponent from "../Dashboard/DashboardComponent.vue";
 
 export default {
+  name: "RegisterUserComponent",
+  data() {
+    return {
+      user: {
+        name: '',
+        email: '',
+        password: '',
+      } ,
+    };
+  },
+ 
+ methods: { 
+    submit() {
+
+      const payload = new FormData();      
+      payload.append('name', this.user.name);
+      payload.append('email', this.user.email);
+      payload.append('password', this.user.password);
+      
+      axios.post('http://localhost:8000/api/users', payload);
+      this.$router.push('/users');
+    },
+  },
   components: {
     DashboardComponent,
   },
-};
+}; 
 </script>
-<style scoped></style>
+<style scoped>
+.btn{
+  color: #fff;
+  background-color: red;
+}
+</style>

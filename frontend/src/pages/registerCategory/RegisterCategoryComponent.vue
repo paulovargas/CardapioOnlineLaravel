@@ -1,91 +1,82 @@
 <template>
   <DashboardComponent>
+    
     <div class="content-pages">
+      <h1 class="p-2">Cadastrar Categoria</h1>
       <slot>
-        <h1 class="p-2">Cadastrar Categoria</h1>   <div >
-        <header class="d-flex justify-content-center">
-          <h1>Faça sua reserva !</h1>
-        </header>
-        <div class="d-flex justify-content-center">
-          <form>
+        <div >        
+        <div class="d-flex p-3">
+          <form @submit.stop.prevent="submit">            
             <div class="form-group">
-              <label for="data">Data </label>
+              <label for="exampleInputEmail1">Descrição</label>
               <input
-                v-model="dta_reservation"
-                type="date"
-                class="form-control"
-                id="date"
-                aria-describedby="date"
-                placeholder="Data"
-              />
-            </div>
-            <div class="form-group">
-              <label for="data">Hora </label>
-              <input
-                v-model="hr_reservation"
-                type="time"
-                class="form-control"
-                id="date"
-                aria-describedby="date"
-                placeholder="20:30"
-              />
-            </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Nome</label>
-              <input
-                v-model="name"
+                v-model="description"
                 type="text"
                 class="form-control"
-                id="name"
-                aria-describedby="name"
-                placeholder="Seu nome"
+                id="description"
+                aria-describedby="description"
+                placeholder="Categoria"
               />
-            </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Quantas pessoas ?</label>
-              <input
-                v-model="qtd"
-                type="number"
-                class="form-control"
-                id="qtd"
-                aria-describedby="qtd"
-                placeholder="Quantas pessoas ?"
-              />
-            </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Seu telefone :</label>
-              <input
-                v-model="phone"
-                type="phone"
-                class="form-control"
-                id="tel"
-                aria-describedby="tel"
-                placeholder="Telefone"
-              />
-            </div>            
+            </div>           
             <div class="form-check"></div>
-            <button
+            <div class="">
+              <button
               type="submit"
-              class="btn btn-primary"
-              @click="submit"
+              class="btn"
             >
-              Marcar reserva !
+              Salvar
             </button>
+            </div>
+            
           </form>
         </div>
-      </div> 
-      </slot>
+      </div> </slot>
     </div>
+  
   </DashboardComponent>
 </template>
 
 <script>
+//import api from "@/api";
+//import axios from "axios";
 import DashboardComponent from "../Dashboard/DashboardComponent.vue";
 
 export default {
+  name: "RegisterCategoryComponent",
+  data() {
+    return {
+      description: '',
+    };
+  },
+  methods: {     
+    submit() {
+      const payload = {
+        description: this.description,
+      };
+
+      fetch(`http://localhost:8000/api/category`, {
+        method: 'POST',
+        headers: {
+          'Content-Type':'application/json',
+          'Access':'application/json',
+        },
+        body: JSON.stringify(payload)
+      }).then(response => response.json())
+      .then(res => {
+        console.log(res)
+        console.log(payload)
+      })
+    },
+  
+  },
   components: {
     DashboardComponent,
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.btn{
+  color: #fff;
+  background-color: red;
+}
+</style>

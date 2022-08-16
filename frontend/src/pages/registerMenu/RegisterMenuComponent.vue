@@ -3,16 +3,38 @@
     <div class="content-pages">
       <slot>
         <h1 class="p-2">Cadastrar Cardápio</h1>
-           <div >
-        <div class="d-flex justify-content-center">
+           <div>            
+        <div class="d-flex p-3">
           <form>
-            
-           
+            <div class="form-group">
+              <label for="exampleInputEmail1">Titulo</label>
+              <input
+                v-model="menu.title"
+                type="text"
+                class="form-control"
+                id="description"
+                aria-describedby="description"
+                placeholder="Nome do prato"
+              />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Descrição</label>
+              <input
+                v-model="menu.description"
+                type="text"
+                class="form-control"
+                id="description"
+                aria-describedby="description"
+                placeholder="Descrição"
+              />
+            </div>          
           
             <div class="form-group">
+              <img :src="imageSrc" alt="" width="100">
+              <br/>
               <label for="exampleInputEmail1">Imagem</label>
               <input
-              @change="newfile"
+              @change="getImage"
                 type="file"
                 class="form-control"
                 id="description"
@@ -20,12 +42,36 @@
                 placeholder="Descrição"
               />
             </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Preço</label>
+              <input
+                v-model="menu.price"
+                type="number"
+                class="form-control"
+                id="description"
+                aria-describedby="description"
+                placeholder="Valor do prato"
+              />
+            </div>
+
+             <div class="form-group">
+              <label for="exampleInputEmail1">Categoria</label>
+              <input
+                v-model="menu.category"
+                type="text"
+                class="form-control"
+                id="description"
+                aria-describedby="description"
+                placeholder="Tipo do prato"
+              />
+            </div>
                       
             <div class="form-check"></div>
             <button
               type="submit"
               class="btn btn-primary"
-              @click.prevent="submit"
+              @click.stop.prevent="submit"
             >
               Salvar prato !
             </button>
@@ -38,43 +84,42 @@
 </template>
 
 <script>
-import api from "@/api";
+//import api from "../../api";
+
+import axios from "axios";
 import DashboardComponent from "../Dashboard/DashboardComponent.vue";
 
 export default {
   name: "ReservationComponent",
   data() {
     return {
-      file: '',
-      name: ''
+      menu: {
+        title: '',
+        description: '',
+        image: '',
+        price: '',
+        category: '',
+      } ,
+      imageSrc: null,
     };
   },
  
  methods: {
-  newfile(event){
-    console.log(event)
-    this.file = event.target.files[0]
-  },    
-    submit() { 
-      var form = ''
-      form = new FormData()
-      form.append('imagem', this.file)
-      form.append('name', this.name)
-      console.log('form', form)
+  getImage($evt){
+    this.menu.image = $evt.target.files[0];
+    this.imageSrc = URL.createObjectURL($evt.target.files[0]);
+  },   
+    async submit() {
 
-      api
-      .post("upload", form)
-      .then((res) => {
-        this.menus = res.data;
-        console.log('menus',this.menus)
-      })
-      .catch((error) => {
-        console.log(error)
-      });
-/* 
-      api.post('upload', form, {headers:{
-        'Content-Type': 'multipart/form-data'
-      }}).then((response) =>{console.log('Imagem: ',response)}) */
+      const payload = new FormData();      
+      payload.append('title', this.menu.title);
+      payload.append('description', this.menu.description);
+      payload.append('image', this.menu.image);
+      payload.append('price', this.menu.price);
+      payload.append('category', this.menu.category);
+      
+      axios.post('http://localhost:8000/api/menus', payload);
+      this.$router.push('/menu');
     },
   },
   components: {
@@ -82,4 +127,8 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.btn{
+  color: #fff;
+  background-color: red;
+}</style>

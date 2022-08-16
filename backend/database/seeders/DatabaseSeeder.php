@@ -16,6 +16,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin'),
         ]);
-        // \App\Models\User::factory(10)->create();
+        //\App\Models\User::factory(10)->create();
     }
 }
