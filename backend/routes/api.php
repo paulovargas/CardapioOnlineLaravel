@@ -24,9 +24,9 @@ use Illuminate\Support\Facades\Route;
 }); */ 
 
 Route::get('/teste', function() {
-    $img = Image::make('images/c1VHG8d9hC6pvI9PXlPxFLOJI6wmv56qf8MCfYhE.jpg')->resize(320, 240);
+    $img = Image::make('public/images/c1VHG8d9hC6pvI9PXlPxFLOJI6wmv56qf8MCfYhE.jpg')->resize(320, 240);
     //$img = Image::make('public/images/zK5R1P1079R7zFB1hYsdfi6ydLczUb3KV36VGBer.jpg');
-    return $img->response('jpg');
+    return $img;
 });
 
 Route::post('/login', function(Request $request){

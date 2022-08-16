@@ -9,8 +9,8 @@
       <p><i class="fa fa-users"> </i>   Serve até {{ 2 }} pessoas</p>
       <p><i class="fa-solid fa-brazilian-real-sign"></i> {{ price }}</p>
       <p><i class="fa-solid fa-kitchen-set"></i> {{ category }}</p>
-      <p><img v-bind:src="image" alt="" class="img" /></p>
-      <p>{{ image }}</p>
+      <img src="" alt="">
+      
     </div>
   </div>
 </template>
@@ -19,6 +19,21 @@
 
 export default {
   name: "CardsMenuComponent",
+  data(){
+    return {
+      imageSrc: null,
+    }
+  },
+  mounted($evt) {
+      console.log($evt);
+    this.getImage();
+  },
+  methods: {
+    getImage($evt){
+      this.imageSrc = this.image.headers;
+      console.log($evt);
+    }
+  },
   props: {
     title: String,
     description: String,

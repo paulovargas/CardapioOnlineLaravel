@@ -107,6 +107,7 @@ export default {
  methods: {
   getImage($evt){
     this.menu.image = $evt.target.files[0];
+    console.log($evt);
     this.imageSrc = URL.createObjectURL($evt.target.files[0]);
   },   
     async submit() {
@@ -117,6 +118,8 @@ export default {
       payload.append('image', this.menu.image);
       payload.append('price', this.menu.price);
       payload.append('category', this.menu.category);
+      
+      console.log('pay', payload);
       
       axios.post('http://localhost:8000/api/menus', payload);
       this.$router.push('/menu');

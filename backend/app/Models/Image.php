@@ -12,6 +12,6 @@ class Image extends Model
 
     public function getImageAttribute($value)
     {
-        return Storage::url("images/" . $value);
+        return Storage::url($value);
     }
 }

@@ -8,7 +8,7 @@
       </p>
       <p><i class="fa fa-users"> </i>   Serve até {{ 2 }} pessoas</p>
       <p><i class="fa fa-users"> </i> {{ price }}</p>
-      <p><i class="fa fa-users"> </i> {{ category }}</p>
+      <p><i class="fa-solid fa-kitchen-set"> </i> {{ category }}</p>
       <p><img :src="image" alt="" class="img" /></p>
     </div>
   </div>

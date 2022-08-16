@@ -21,41 +21,25 @@ class MenuController extends Controller
             $path = $name->image;
             
 
-            $image = Storage::get($path);
+            $img = Storage::get($path);
+            $image = Image::make($img);
            /*  $this->imagem = Image::make($img);
             $response = Response::make($this->imagem->encode('jpeg'));
             $response->header('Content-Type', 'image/jpeg');
             $name->image = $response; */
-            $img = Image::make($image);
-            $name->image = response()->make($img);
-            //echo $name->image;
 
+            //$image = Storage::get($path);
+            //$name->image = Image::make($image)->resize(320, 240);
+            //echo Image::make($image)->resize(320, 240);
 
-           
+            //echo Storage::url($path);
+
+            //echo $image;
             
-        }
-        //echo $menu;
-        //return $response;
-
-        //dd(json_decode($menu));
-        //$menu->image = $file;
- 
-        //$storage = Storage::disk('public');
-        //$menus = Menu::all();
-        ///*  */$this->foto = Menu::find($menus->image);
-
-        //Storage::disk('public')->get('image/KAgIutWhaUMQRJiM9ZObzMVwNTVfjSPYW3LeEML0.jpg'); 
-
-        /* $arquivo = Storage::get('public/images/KAgIutWhaUMQRJiM9ZObzMVwNTVfjSPYW3LeEML0.jpg'); 
-        $this->imagem = Image::make($arquivo);
-
-        $response = Response::make($this->imagem->encode('jpeg'));
-        $response->header('Content-Type', 'image/jpeg');
-
-        return $response; */
-        //dd($menus->image);
-        //$menus['image'] = './public/images/' . $image;
-        //dd($menus);
+            //$name->image = response()->make($image->encode($image->mime()), 200, array('Content-Type' => 'image' . $image->mime()));
+            //echo $name->image;      
+            
+        }      
         return response()->json($menu);        
     }
     public function store(MenuStoreRequest $request)
