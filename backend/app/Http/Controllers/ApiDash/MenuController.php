@@ -14,13 +14,10 @@ class MenuController extends Controller
 {
     public function index()
     {
-        $menu = Menu::all();
-       
-        //$file =  Image::url("images/KAgIutWhaUMQRJiM9ZObzMVwNTVfjSPYW3LeEML0.jpg");//Image::make('images/KAgIutWhaUMQRJiM9ZObzMVwNTVfjSPYW3LeEML0.jpg');
+        $menu = Menu::all();       
         
         foreach( $menu as $item => $name){
-            $path = $name->image;
-            
+            $path = $name->image;            
             $url = Storage::url($path);
             $name->image = $url;            
         }      

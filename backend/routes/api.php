@@ -23,12 +23,6 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 }); */ 
 
-Route::get('/teste', function() {
-    $img = Image::make('public/images/c1VHG8d9hC6pvI9PXlPxFLOJI6wmv56qf8MCfYhE.jpg')->resize(320, 240);
-    //$img = Image::make('public/images/zK5R1P1079R7zFB1hYsdfi6ydLczUb3KV36VGBer.jpg');
-    return $img;
-});
-
 Route::post('/login', function(Request $request){
     if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
         $user = Auth::user();
@@ -38,18 +32,20 @@ Route::post('/login', function(Request $request){
     return response()->json('Usuário inválido', 401);
 });
 
-Route::get('image/{filename}', [HomeController::class, 'displayImage']);
-
-Route::post('upload', [uploadController::class,'upload']);
-
 Route::get('/reservations', [ReservationController::class,'index']);
 Route::post('/reservations', [ReservationController::class,'create']);
+
 Route::get('/category', [CategoryController::class,'index']);
 Route::post('/category', [CategoryController::class,'create']);
+Route::put('/category/{id}', [CategoryController::class,'edit']);
+Route::delete('/category/{id}', [CategoryController::class,'destroy']);
+
 Route::get('/menus', [MenuController::class,'index']);
 Route::post('/menus', [MenuController::class,'store']);
+
 Route::get('/users', [UserController::class,'index']);
 Route::post('/users', [UserController::class,'create']);
+
 Route::get('/', [HomeController::class,'index']);
 
 

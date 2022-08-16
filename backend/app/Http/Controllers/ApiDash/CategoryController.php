@@ -22,4 +22,20 @@ class CategoryController extends Controller
         return response()->json(["message" => "Categoria cadastrada com sucesso!"], 201);
         
     }
+    public function edit(Request $request, $id)
+    {
+        //dd($request);
+        //dd($id);
+        $oldCategory = Category::find($id);
+        $oldCategory->update($request->all());
+
+        return response()->json(["message" => "Categoria alterada com sucesso!"], 201);        
+    }
+    public function destroy($request)
+    {
+        $category = Category::find($request);
+        $category->delete();
+
+        return response()->json(["message" => "Categoria excluída com sucesso!"], 201);        
+    }
 }

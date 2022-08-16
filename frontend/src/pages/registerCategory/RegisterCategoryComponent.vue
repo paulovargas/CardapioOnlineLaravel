@@ -15,6 +15,7 @@
                 class="form-control"
                 id="description"
                 aria-describedby="description"
+                aria-label="description"
                 placeholder="Categoria"
               />
             </div>           
@@ -23,8 +24,8 @@
               <button
               type="submit"
               class="btn"
-            >
-              Salvar
+            > {{ btnText }}
+              
             </button>
             </div>
             
@@ -43,7 +44,17 @@
     <tr v-for="category in categorys" :key="category.id">
       <th scope="row">{{ category.id }}</th>
       <td>{{ category.description }}</td>
-      <td><i class="fa fa-edit"></i> <i class="fa fa-trash"></i></td>
+      <td><button
+              className="btn btn-alert ml-2"
+              v-on:click="editCategory(category.id, category.description)"
+            >
+              <i class="fa fa-edit"></i>
+            </button> <button
+              className="btn btn-danger ml-2"
+              v-on:click="destroyCategory(category.id)"
+            >
+              <i class="fa fa-trash" ></i>
+            </button></td>
     </tr>    
   </tbody>
 </table>
@@ -68,16 +79,17 @@ export default {
    created() {
      this.getCategory();
    },
-  mounted() {    
+  mounted() {
+    this.btnText = 'Salvar';    
     this.getCategory();
   },
   methods: {     
-    submit() {
+    async submit() {
       const payload = {
         description: this.description,
       };
-
-      fetch(`http://localhost:8000/api/category`, {
+      if(this.btnText == 'Salvar'){
+        await fetch(`http://localhost:8000/api/category`, {
         method: 'POST',
         headers: {
           'Content-Type':'application/json',
@@ -85,10 +97,22 @@ export default {
         },
         body: JSON.stringify(payload)
       }).then(response => response.json())
-      .then(res => {
-        console.log(res)
-        console.log(payload)
-      })
+      .then(res => { res })
+      this.getCategory();
+      }
+      if(this.btnText == 'Salvar alteração'){
+     await fetch(`http://localhost:8000/api/category/${this.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type':'application/json',
+          'Access':'application/json',
+        },
+        body: JSON.stringify(payload)
+      }).then(response => response.json())
+      .then(res => { res })
+      this.getCategory();
+      }
+        
     },
     getCategory() {
       api
@@ -99,8 +123,25 @@ export default {
       .catch((error) => {
         console.log(error)
       });
+      this.description = '';
     },
-  
+    editCategory(id, category){
+      this.btnText = 'Salvar alteração';
+      this.description = category;
+
+      
+    }, 
+    destroyCategory(id){
+       api
+      .delete(`/category/${id}`)
+      .then((res) => {
+         res ,
+         alert(res.data.message),
+      this.getCategory() })
+      .catch((error) => {
+        console.log(error)
+      });
+    }  
   },
   components: {
     DashboardComponent,

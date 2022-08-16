@@ -58,8 +58,6 @@ export default {
         email: this.email,
         password: this.password
       };
-
-
       fetch(`http://localhost:8000/api/login`, {
         method: 'POST',
         headers: {
