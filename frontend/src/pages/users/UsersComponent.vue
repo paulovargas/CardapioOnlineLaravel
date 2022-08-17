@@ -89,7 +89,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import api from "@/api";
 import DashboardComponent from "../Dashboard/DashboardComponent.vue";
 
@@ -113,24 +112,26 @@ export default {
     this.getUsers();
   },
   methods: {     
-    submit() {      
+    async submit() {
+      const payload = {
+        name: this.user.name,
+        email: this.user.email,
+        password: this.user.password,
+      };      
       if(this.btnText == 'Salvar'){
-          const payload = new FormData();      
-          payload.append('name', this.user.name);
-          payload.append('email', this.user.email);
-          payload.append('password', this.user.password);
-          
-          axios.post('http://localhost:8000/api/users', payload);
+        await fetch(`http://localhost:8000/api/users`, {
+        method: 'POST',
+        headers: {
+          'Content-Type':'application/json',
+          'Access':'application/json',
+        },
+        body: JSON.stringify(payload)
+      }).then(response => response.json())
+      .then(res => { res })
+      this.getUsers();
       }
       if(this.btnText == 'Salvar alteração'){
-          const payload = new FormData();      
-          payload.append('name', this.user.name);
-          payload.append('email', this.user.email);
-          payload.append('password', this.user.password);
-          
-          axios.post('http://localhost:8000/api/users', payload);
-          this.$router.push('/users');
-    /*  await fetch(`http://localhost:8000/api/users/${this.id}`, {
+          await fetch(`http://localhost:8000/api/users/${this.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type':'application/json',
@@ -139,7 +140,7 @@ export default {
         body: JSON.stringify(payload)
       }).then(response => response.json())
       .then(res => { res })
-      this.getUsers(); */
+      this.getUsers();    
       }
       this.getUsers();        
     },
@@ -152,7 +153,7 @@ export default {
       .catch((error) => {
         console.log(error)
       });
-      this.description = '';
+      this.user = {};
     },
     editUsers(id, user){
       this.btnText = 'Salvar alteração';
