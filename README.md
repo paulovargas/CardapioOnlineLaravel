@@ -1,5 +1,7 @@
 # CardapioOnlineLaravel
 
+# FORAM ATUALIZADAS AS DEPENDENCIAS DO PROJETO E CRIEI UM NOVO REPOSITORIO
+
 # backend
 
 ## Crie um banco de dados com o nome vue-laravel-dashboard e configure seu usuário e senha no arquivo 
